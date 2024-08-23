@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { getPosts } from '../Api/getPosts';
 import { Post } from '@/types/types';
 import { useRouter } from 'next/navigation';
+import { ThemeSwitcher } from './ThemeSwitcher';
+
 
 const PostCards: React.FC = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -13,11 +15,15 @@ const PostCards: React.FC = () => {
   const router = useRouter();
   const [form] = Form.useForm();
 
+
+
+
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const allPosts = await getPosts();
-        setTotalPosts(allPosts.length); 
+        setTotalPosts(allPosts.length);
         const paginatedPosts = allPosts.slice((currentPage - 1) * pageSize, currentPage * pageSize);
         setPosts(paginatedPosts);
       } catch (error) {
@@ -39,7 +45,7 @@ const PostCards: React.FC = () => {
         title: values.title,
         body: values.body,
       };
-      setPosts([newPost, ...posts]); 
+      setPosts([newPost, ...posts]);
       form.resetFields();
 
       message.success('Post added successfully!');
@@ -51,6 +57,7 @@ const PostCards: React.FC = () => {
 
   return (
     <div className='p-4'>
+       <ThemeSwitcher />
       <div className='flex flex-col items-center p-6'>
         <h1 className='text-3xl py-6 text-center font-bold'>Agrega tu post aquí</h1>
         <Form
@@ -108,7 +115,7 @@ const PostCards: React.FC = () => {
           className="bg-white rounded-md shadow-sm"
         />
       </div>
-    </div>
+    </div >
   );
 };
 
