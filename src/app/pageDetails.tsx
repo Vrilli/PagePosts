@@ -1,8 +1,9 @@
+"use client";
 import { PostDetailProps } from "@/types/types";
 import { Button } from "antd";
 import { useRouter } from 'next/router';
 
-const PostDetailPage: React.FC<PostDetailProps> = ({ post, comments }) => {
+const PageDetails: React.FC<PostDetailProps> = ({ post, comments }) => {
     const router = useRouter();
     return (
         <div className="p-4">
@@ -23,4 +24,4 @@ const PostDetailPage: React.FC<PostDetailProps> = ({ post, comments }) => {
     );
 };
 
-export default PostDetailPage;
+export default PageDetails;

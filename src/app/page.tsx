@@ -3,8 +3,8 @@ import { Button, Card, Space, Input, Form, message, Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import { getPosts } from '../Api/getPosts';
 import { Post } from '@/types/types';
-import { useRouter } from 'next/navigation';
-import { ThemeSwitcher } from './ThemeSwitcher';
+import { useRouter } from 'next/navigation'
+
 
 
 const PostCards: React.FC = () => {
@@ -12,11 +12,9 @@ const PostCards: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(5);
   const [totalPosts, setTotalPosts] = useState(0);
-  const router = useRouter();
   const [form] = Form.useForm();
-
-
-
+  const router = useRouter()
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
 
   useEffect(() => {
@@ -35,7 +33,15 @@ const PostCards: React.FC = () => {
   }, [currentPage, pageSize]);
 
   const handleClick = (postId: number) => {
-    router.push(`/posts/${postId}`);
+    router.push(`/pageDetails`)
+  };
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
+
+  const handleChangeTheme = () => {
+    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
   };
 
   const onFinish = async (values: { title: string; body: string }) => {
@@ -57,7 +63,9 @@ const PostCards: React.FC = () => {
 
   return (
     <div className='p-4'>
-       <ThemeSwitcher />
+      <Button onClick={handleChangeTheme}>
+        Cambiar a {theme === 'light' ? 'Dark' : 'Light'} Theme
+      </Button>
       <div className='flex flex-col items-center p-6'>
         <h1 className='text-3xl py-6 text-center font-bold'>Agrega tu post aquí</h1>
         <Form

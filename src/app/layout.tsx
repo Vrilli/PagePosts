@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Providers from "./provider";
 
 
 
@@ -17,13 +16,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
 
+  return (
     <html lang="en">
       <body>
-        <Providers>
-          <main>{children}</main>
-        </Providers>
+        {children}
       </body>
     </html>
 
